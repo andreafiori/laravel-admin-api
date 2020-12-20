@@ -39,6 +39,7 @@ Thumbs.db
 *.exe
 *.o
 *.so
+*.md
 
 # Packaged files
 *.7z
