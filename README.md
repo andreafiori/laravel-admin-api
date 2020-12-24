@@ -11,6 +11,19 @@ A full-stack application with a Laravel PHP APIs and a React frontend
 ## Installation
 
     composer install
+    
+## Docker
+
+    docker compose build
+    docker compose up
+
+## Laravel
+
+    php artisan serve
+    
+## Run tests
+
+    php artisan test
 
 ## Technologies
 
@@ -20,3 +33,7 @@ A full-stack application with a Laravel PHP APIs and a React frontend
 - Open API
 - Docker
 - React
+
+## Tools
+
+- PHPStorm IDE

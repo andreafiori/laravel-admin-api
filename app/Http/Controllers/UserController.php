@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UserResource;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UpdateInfoRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 
 class UserController extends Controller
@@ -54,7 +54,7 @@ class UserController extends Controller
         return response(null, Response::HTTP_NO_CONTENT);
     }
 
-    public function user($id)
+    public function user()
     {
         return new UserResource(\Auth::user());
     }
@@ -65,7 +65,7 @@ class UserController extends Controller
 
         $user->update($request->only('first_name', 'last_name', 'email'));
 
-        return response(new UserResource($user, Response::HTTP_ACCEPTED);
+        return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
 
     public function updatePassword(UpdateInfoRequest $request)
@@ -76,6 +76,6 @@ class UserController extends Controller
             'password' => Hash::make($request->input('password'))
         ]);
 
-        return response(new UserResource($user, Response::HTTP_ACCEPTED);
+        return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
 }
