@@ -1,12 +1,13 @@
 # Laravel React Dashboard
 
-A full-stack application with a Laravel PHP APIs and a React frontend
+A full-stack application example with a Laravel PHP APIs and a React frontend
 
 ## Requirements
 
 - PHP 7.4
 - MySQL
 - Composer
+- Docker
 
 ## Installation
 
@@ -16,6 +17,10 @@ A full-stack application with a Laravel PHP APIs and a React frontend
 
     docker compose build
     docker compose up
+
+Access the admin API container:
+
+    docker exec -it laravel-admin_backend_1 sh
 
 ## Laravel
 
@@ -30,10 +35,17 @@ A full-stack application with a Laravel PHP APIs and a React frontend
 - Laravel 8.x
     - Laravel IDE helper
     - Laravel passport
-- Open API
 - Docker
+- Open API
 - React
 
 ## Tools
 
 - PHPStorm IDE
+- Postman
+
+## TODO
+
+- REST request error handling
+- Upload error handling
+- Testing UI, API and unit testing
