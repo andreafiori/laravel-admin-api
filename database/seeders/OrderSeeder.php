@@ -10,6 +10,7 @@ class OrderSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * Create n order items for each order setting a foreign key relation
      *
      * @return void
      */

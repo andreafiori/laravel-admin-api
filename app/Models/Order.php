@@ -24,8 +24,29 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read mixed $total
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OrderItem[] $orderItems
+ * @property-read int|null $order_items_count
+ * @property-read mixed $name
  */
 class Order extends Model
 {
     use HasFactory;
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function getTotalAttribute()
+    {
+        return $this->orderItems->sum(function(OrderItem $item) {
+            return $item->price * $item->quantity;
+        });
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
 }

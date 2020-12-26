@@ -57,4 +57,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo( Role::class);
     }
+
+    public function permissions()
+    {
+        // Return permissions as an array with pluck method
+        return $this->role->permissions->pluck('name');
+    }
 }
