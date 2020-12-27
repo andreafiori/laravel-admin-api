@@ -6,38 +6,30 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @OA\Schema(
- *     title="Update User info Request",
- *     description="Update User info request"
+ *      title="Update User Password request",
+ *      description="Update User Password request body data",
  * )
  */
-class UpdateInfoRequest extends FormRequest
+class UpdatePasswordRequest extends FormRequest
 {
     /**
      * @OA\Property(
-     *     title="first_name"
+     *   title="password"
      * )
      *
      * @var string
      */
-    public $first_name;
+    public $password;
 
     /**
      * @OA\Property(
-     *     title="last_name"
+     *   title="password_confirm"
      * )
      *
      * @var string
      */
-    public $last_name;
+    public $password_confirm;
 
-    /**
-     * @OA\Property(
-     *     title="email"
-     * )
-     *
-     * @var string
-     */
-    public $email;
 
     /**
      * Determine if the user is authorized to make this request.

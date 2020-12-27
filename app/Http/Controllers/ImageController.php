@@ -7,6 +7,16 @@ use App\Http\Requests\ImageUploadRequest;
 
 class ImageController extends Controller
 {
+    /**
+     * @OA\Post(
+     *   path="/upload",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Images"},
+     *   @OA\Response(response="200",
+     *     description="Upload Images",
+     *   )
+     * )
+     */
     public function upload(ImageUploadRequest $request)
     {
         $file = $request->file('image');

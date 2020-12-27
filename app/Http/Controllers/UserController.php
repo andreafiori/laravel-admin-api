@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UpdateInfoRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 
@@ -15,14 +16,23 @@ class UserController extends Controller
     /**
      * @OA\Get(
      *      path="/users",
-     *      operationId="getProjectsList",
-     *      tags={"Projects"},
-     *      summary="Get list of projects",
-     *      description="Returns list of projects",
+     *      operationId="getUsersList",
+     *      tags={"Users"},
+     *      summary="Get list of users",
+     *      description="Returns list of users",
+     *      security={{"bearer_token": {}}},
      *      @OA\Response(
      *          response=200,
-     *          description="Successful operation",
-     *      )
+     *          description="Successful operation"
+     *      ),
+     *      @OA\Parameter(
+     *          name="page",
+     *          description="Pagination page",
+     *          in="query",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
      *  )
      */
     public function index()
@@ -34,6 +44,28 @@ class UserController extends Controller
         return UserResource::collection($users);
     }
 
+    /**
+     * @OA\Get(
+     *      path="/users/{id}",
+     *      summary="Get single user",
+     *      tags={"Users"},
+     *      description="Return single user",
+     *      security={{"bearer_token": {}}},
+     *      @OA\Response(
+     *          response=200,
+     *          description="User"
+     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="User ID",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *  )
+     */
     public function show($id)
     {
         \Gate::authorize('edit', 'users');
@@ -43,6 +75,23 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
+    /**
+     * @OA\Post(
+     *      path="/users",
+     *      summary="Create user",
+     *      tags={"Users"},
+     *      description="Create user",
+     *      security={{"bearer_token": {}}},
+     *      @OA\Response(
+     *          response=201,
+     *          description="User"
+     *      ),
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/UserCreateRequest")
+     *     )
+     *  )
+     */
     public function store(UserCreateRequest $request)
     {
         \Gate::authorize('edit', 'users');
@@ -57,6 +106,32 @@ class UserController extends Controller
         return response(new UserResource($user), Response::HTTP_CREATED);
     }
 
+    /**
+     * @OA\Put(
+     *      path="/users/{id}",
+     *      summary="Update a user",
+     *      tags={"Users"},
+     *      description="Update a user",
+     *      security={{"bearer_token": {}}},
+     *      @OA\Response(
+     *          response=202,
+     *          description="User"
+     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="User ID",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/UserUpdateRequest")
+     *     )
+     *  )
+     */
     public function update(UserUpdateRequest $request, $id)
     {
         \Gate::authorize('edit', 'users');
@@ -68,6 +143,28 @@ class UserController extends Controller
         return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
 
+    /**
+     * @OA\Delete(
+     *      path="/users/{id}",
+     *      summary="Delete User",
+     *      tags={"Users"},
+     *      description="Delete a user",
+     *      security={{"bearer_token": {}}},
+     *      @OA\Response(
+     *          response=204,
+     *          description="User"
+     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="User ID",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      )
+     *  )
+     */
     public function destroy($id)
     {
         \Gate::authorize('edit', 'users');
@@ -77,6 +174,19 @@ class UserController extends Controller
         return response(null, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * @OA\Put(
+     *      path="/user",
+     *      summary="Authenticated user",
+     *      description="Show authenticated user info",
+     *      tags={"Profile"},
+     *      security={{"bearer_token": {}}},
+     *      @OA\Response(
+     *          response=204,
+     *          description="User"
+     *      )
+     *  )
+     */
     public function user()
     {
         // Get current logged user
@@ -89,6 +199,19 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Put(
+     *      path="/users/info",
+     *      summary="User update info",
+     *      description="Show authenticated user info",
+     *      tags={"Profile"},
+     *      security={{"bearer_token": {}}},
+     *      @OA\Response(
+     *          response=204,
+     *          description="User"
+     *      )
+     *  )
+     */
     public function updateInfo(UpdateInfoRequest $request)
     {
         $user = \Auth::user();
@@ -98,7 +221,24 @@ class UserController extends Controller
         return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
 
-    public function updatePassword(UpdateInfoRequest $request)
+    /**
+     * @OA\Put(
+     *      path="/users/password",
+     *      summary="User update password",
+     *      description="Update current user's password",
+     *      tags={"Profile"},
+     *      security={{"bearer_token": {}}},
+     *      @OA\Response(
+     *          response=204,
+     *          description="User"
+     *      ),
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/UpdatePasswordRequest")
+     *     )
+     *  )
+     */
+    public function updatePassword(UpdatePasswordRequest $request)
     {
         $user = \Auth::user();
 

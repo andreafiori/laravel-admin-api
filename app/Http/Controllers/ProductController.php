@@ -10,6 +10,15 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
+    /**
+     * @OA\Get(path="/products",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Products"},
+     *   @OA\Response(response="200",
+     *     description="Product Collection",
+     *   )
+     * )
+     */
     public function index()
     {
         \Gate::authorize('view', 'products');
@@ -19,6 +28,24 @@ class ProductController extends Controller
         return ProductResource::collection($products);
     }
 
+    /**
+     * @OA\Get(path="/products/{id}",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Products"},
+     *   @OA\Response(response="200",
+     *     description="User",
+     *   ),
+     *   @OA\Parameter(
+     *     name="id",
+     *     description="Product ID",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="integer"
+     *     )
+     *   )
+     * )
+     */
     public function show($id)
     {
         \Gate::authorize('view', 'products');
@@ -26,6 +53,16 @@ class ProductController extends Controller
         return new ProductResource(Product::find($id));
     }
 
+    /**
+     * @OA\Post(
+     *   path="/products",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Products"},
+     *   @OA\Response(response="201",
+     *     description="Product Create",
+     *   )
+     * )
+     */
     public function store(ProductCreateRequest $request)
     {
         \Gate::authorize('edit', 'products');
@@ -35,6 +72,25 @@ class ProductController extends Controller
         return response($product, Response::HTTP_CREATED);
     }
 
+    /**
+     * @OA\Put(
+     *   path="/products/{id}",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Products"},
+     *   @OA\Response(response="202",
+     *     description="Product Update",
+     *   ),
+     *   @OA\Parameter(
+     *     name="id",
+     *     description="Product ID",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="integer"
+     *     )
+     *   )
+     * )
+     */
     public function update(ProductUpdateRequest $request, $id)
     {
         \Gate::authorize('edit', 'products');
@@ -46,6 +102,24 @@ class ProductController extends Controller
         return response($product, Response::HTTP_ACCEPTED);
     }
 
+    /**
+     * @OA\Delete(path="/products/{id}",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Products"},
+     *   @OA\Response(response="204",
+     *     description="Product Delete",
+     *   ),
+     *   @OA\Parameter(
+     *     name="id",
+     *     description="Product ID",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="integer"
+     *     )
+     *   )
+     * )
+     */
     public function destroy($id)
     {
         \Gate::authorize('edit', 'products');

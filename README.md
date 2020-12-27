@@ -1,10 +1,10 @@
-# Laravel React Dashboard
+# Laravel API Admin
 
-A full-stack application example with a Laravel PHP APIs and a React frontend
+A Laravel PHP APIs example application with documentation.
 
 ## Requirements
 
-- PHP 7.4
+- PHP >= 7.4
 - MySQL
 - Composer
 - Docker
@@ -25,6 +25,10 @@ Access the admin API container:
 ## Laravel
 
     php artisan serve
+
+Generate Open API \ Swagger documentation:
+
+    php artisan l5-swagger:generate
     
 ## Run tests
 
@@ -36,16 +40,17 @@ Access the admin API container:
     - [Laravel IDE helper](https://github.com/barryvdh/laravel-ide-helper)
     - [Laravel passport](https://laravel.com/docs/8.x/passport)
 - [Docker](https://www.docker.com/)
-- [Open API](https://github.com/vyuldashev/laravel-openapi)
+- [L6 Swagger](https://github.com/DarkaOnLine/L5-Swagger)
 - [React](https://en.reactjs.org/)
 
 ## Tools
 
 - PHPStorm IDE
+- Docker desktop
 - Postman
 
 ## TODO
 
-- Generic and upload error handling
-- Testing APIs
-
+- [Code Testing](https://laravel.com/docs/8.x/http-tests)
+- [Testing Laravel Passport](https://laravel.com/docs/8.x/passport#testing)
+- Open API comments testing?

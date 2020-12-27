@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ChartResource;
 use App\Models\Order;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    /**
+     * @OA\Get(path="/chart",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Dashboard"},
+     *   @OA\Response(response="200",
+     *     description="Dashboard chart graph",
+     *   )
+     * )
+     */
     public function chart()
     {
         \Gate::authorize('view', 'orders');

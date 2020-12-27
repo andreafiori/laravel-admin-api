@@ -54,7 +54,8 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         return response([
-            'error' => $exception->getMessage().' File: '.$exception->getFile().' Line: '.$exception->getLine(),
+            // 'error' => $exception->getMessage().' File: '.$exception->getFile().' Line: '.$exception->getLine(),
+            'error' => $exception->getMessage(),
         ], $exception->getCode() ? $exception->getCode() : 400);
     }
 

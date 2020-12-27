@@ -10,6 +10,15 @@ use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
+    /**
+     * @OA\Post(
+     *   path="/login",
+     *   tags={"Public"},
+     *   @OA\Response(response="200",
+     *     description="Login",
+     *   )
+     * )
+     */
     public function login(Request $request)
     {
         if (Auth::attempt($request->only('email', 'password'))) {
@@ -31,6 +40,15 @@ class AuthController extends Controller
         ], Response::HTTP_UNAUTHORIZED);
     }
 
+    /**
+     * @OA\Post(
+     *   path="/logout",
+     *   tags={"Public"},
+     *   @OA\Response(response="200",
+     *     description="Logout",
+     *   )
+     * )
+     */
     public function logout()
     {
         $cookie = \Cookie::forget('jwt');
@@ -40,6 +58,15 @@ class AuthController extends Controller
         ])->withCookie($cookie);
     }
 
+    /**
+     * @OA\Post(
+     *   path="/register",
+     *   tags={"Public"},
+     *   @OA\Response(response="200",
+     *     description="Register",
+     *   )
+     * )
+     */
     public function register(RegisterRequest $request)
     {
         $user = User::create($request->only('first_name', 'last_name', 'email') +

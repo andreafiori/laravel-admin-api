@@ -9,6 +9,15 @@ use App\Models\Role;
 
 class RoleController extends Controller
 {
+    /**
+     * @OA\Get(path="/roles",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Roles"},
+     *   @OA\Response(response="200",
+     *     description="Role Collection",
+     *   )
+     * )
+     */
     public function index()
     {
         \Gate::authorize('view', 'roles');
@@ -16,6 +25,24 @@ class RoleController extends Controller
         return RoleResource::collection(Role::all());
     }
 
+    /**
+     * @OA\Get(path="/roles/{id}",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Roles"},
+     *   @OA\Response(response="200",
+     *     description="User",
+     *   ),
+     *   @OA\Parameter(
+     *     name="id",
+     *     description="Role ID",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="integer"
+     *     )
+     *   )
+     * )
+     */
     public function show($id)
     {
         \Gate::authorize('view', 'roles');
@@ -23,6 +50,16 @@ class RoleController extends Controller
         return new RoleResource(Role::find($id));
     }
 
+    /**
+     * @OA\Post(
+     *   path="/roles",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Roles"},
+     *   @OA\Response(response="201",
+     *     description="Role Create",
+     *   )
+     * )
+     */
     public function store(Request $request)
     {
         \Gate::authorize('edit', 'roles');
@@ -41,6 +78,25 @@ class RoleController extends Controller
        return response(new RoleResource($role), Response::HTTP_CREATED);
     }
 
+    /**
+     * @OA\Put(
+     *   path="/roles/{id}",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Roles"},
+     *   @OA\Response(response="202",
+     *     description="Role Update",
+     *   ),
+     *   @OA\Parameter(
+     *     name="id",
+     *     description="Role ID",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="integer"
+     *     )
+     *   )
+     * )
+     */
     public function update(Request $request, $id)
     {
         \Gate::authorize('edit', 'roles');
@@ -63,6 +119,24 @@ class RoleController extends Controller
         return response(new RoleResource($role), Response::HTTP_ACCEPTED);
     }
 
+    /**
+     * @OA\Delete(path="/roles/{id}",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Roles"},
+     *   @OA\Response(response="204",
+     *     description="Role Delete",
+     *   ),
+     *   @OA\Parameter(
+     *     name="id",
+     *     description="Role ID",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="integer"
+     *     )
+     *   )
+     * )
+     */
     public function destroy($id)
     {
         \Gate::authorize('edit', 'roles');

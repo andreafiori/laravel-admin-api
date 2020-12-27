@@ -7,6 +7,15 @@ use App\Http\Resources\OrderResource;
 
 class OrderController extends Controller
 {
+    /**
+     * @OA\Get(path="/orders",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Orders"},
+     *   @OA\Response(response="200",
+     *     description="Order Collection",
+     *   )
+     * )
+     */
     public function index()
     {
         \Gate::authorize('view', 'orders');
@@ -16,6 +25,24 @@ class OrderController extends Controller
         return OrderResource::collection($orders);
     }
 
+    /**
+     * @OA\Get(path="/orders/{id}",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Orders"},
+     *   @OA\Response(response="200",
+     *     description="User",
+     *   ),
+     *   @OA\Parameter(
+     *     name="id",
+     *     description="Order ID",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="integer"
+     *     )
+     *   )
+     * )
+     */
     public function show($id)
     {
         \Gate::authorize('view', 'orders');
@@ -23,6 +50,15 @@ class OrderController extends Controller
         return new OrderResource(Order::find($id));
     }
 
+    /**
+     * @OA\Get(path="/export",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Orders"},
+     *   @OA\Response(response="200",
+     *     description="Order Export",
+     *   )
+     * )
+     */
     public function export()
     {
         \Gate::authorize('view', 'orders');
