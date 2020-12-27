@@ -12,8 +12,23 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    /**
+     * @OA\Get(
+     *      path="/users",
+     *      operationId="getProjectsList",
+     *      tags={"Projects"},
+     *      summary="Get list of projects",
+     *      description="Returns list of projects",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      )
+     *  )
+     */
     public function index()
     {
+        \Gate::authorize('view', 'users');
+
         $users = User::paginate();
 
         return UserResource::collection($users);
@@ -21,6 +36,8 @@ class UserController extends Controller
 
     public function show($id)
     {
+        \Gate::authorize('edit', 'users');
+
         $user = User::find($id);
 
         return new UserResource($user);
@@ -28,6 +45,8 @@ class UserController extends Controller
 
     public function store(UserCreateRequest $request)
     {
+        \Gate::authorize('edit', 'users');
+
         $user = User::create(
             $request->only('first_name', 'last_name', 'email', 'role_id') +
             [
@@ -40,6 +59,8 @@ class UserController extends Controller
 
     public function update(UserUpdateRequest $request, $id)
     {
+        \Gate::authorize('edit', 'users');
+
         $user = User::find($id);
 
         $user->update($request->only('first_name', 'last_name', 'email', 'role_id'));
@@ -49,6 +70,8 @@ class UserController extends Controller
 
     public function destroy($id)
     {
+        \Gate::authorize('edit', 'users');
+
         User::destroy($id);
 
         return response(null, Response::HTTP_NO_CONTENT);
@@ -61,8 +84,8 @@ class UserController extends Controller
 
         return (new UserResource($user))->additional([
             'data' => [
-                'permissions' => $user->permissions()
-            ]
+                'permissions' => $user->permissions(),
+            ],
         ]);
     }
 

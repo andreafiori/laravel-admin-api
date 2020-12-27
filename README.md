@@ -32,12 +32,12 @@ Access the admin API container:
 
 ## Technologies
 
-- Laravel 8.x
-    - Laravel IDE helper
-    - Laravel passport
-- Docker
-- Open API
-- React
+- [Laravel 8.x](https://laravel.com/)
+    - [Laravel IDE helper](https://github.com/barryvdh/laravel-ide-helper)
+    - [Laravel passport](https://laravel.com/docs/8.x/passport)
+- [Docker](https://www.docker.com/)
+- [Open API](https://github.com/vyuldashev/laravel-openapi)
+- [React](https://en.reactjs.org/)
 
 ## Tools
 
@@ -46,6 +46,6 @@ Access the admin API container:
 
 ## TODO
 
-- REST request error handling
-- Upload error handling
-- Testing UI, API and unit testing
+- Generic and upload error handling
+- Testing APIs
+

@@ -7,6 +7,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +25,9 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('register', [AuthController::class, 'register'])->name('register');
 
 Route::group(['middleware' => 'auth:api'], function() {
+    Route::get('logout', [UserController::class, 'logout']);
+
+    Route::get('chart', [DashboardController::class, 'chart']);
     Route::get('user', [UserController::class, 'user']);
     Route::put('users/info', [UserController::class, 'updateInfo']);
     Route::put('users/password', [UserController::class, 'updatePassword']);
@@ -33,4 +38,5 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('products', ProductController::class);
     Route::apiResource('orders', OrderController::class)->only('index', 'show');
+    Route::apiResource('permissions', PermissionController::class)->only('index');
 });

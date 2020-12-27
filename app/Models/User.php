@@ -63,4 +63,9 @@ class User extends Authenticatable
         // Return permissions as an array with pluck method
         return $this->role->permissions->pluck('name');
     }
+
+    public function hasAccess($access)
+    {
+        return $this->permissions()->contains($access);
+    }
 }
