@@ -11,16 +11,28 @@ A Laravel PHP APIs example application with documentation.
 
 ## Installation
 
-    composer install
-    
-## Docker
+You can install the laravel dependencies with composer install but the application uses Docker anyway:
 
-    docker compose build
+Create containers backend, frontend and db:
+
+    docker compose up -d
+
+Run docker:
+
     docker compose up
 
-Access the admin API container:
+Show the containers list:
 
-    docker exec -it laravel-admin_backend_1 sh
+    docker ps
+
+Access the API container.
+
+    docker exec -it admin_api sh
+
+Migration and seeds:
+
+    php artisan migrate
+    php artisan db:seed
 
 ## Laravel
 

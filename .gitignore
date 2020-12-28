@@ -8,6 +8,7 @@
 .env
 .env.backup
 .phpunit.result.cache
+docker-compose.yml
 docker-compose.override.yml
 Homestead.json
 Homestead.yaml
@@ -58,6 +59,7 @@ Thumbs.db
 _ide_helper.php
 /.idea
 /.vscode
+
 # Eclipse project files
 .buildpath
 .project
