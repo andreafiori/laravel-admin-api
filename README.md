@@ -29,16 +29,24 @@ Access the API container.
 
     docker exec -it admin_api sh
 
-Migration and seeds:
+Migration and inserting demo data (seed):
+
+After editing the .env file with the database connection parameter, you will be ready to migrate:
 
     php artisan migrate
     php artisan db:seed
+
+PHPMyAdmin configuration is included in the docker-compose.yml so you can use it to manage MySQL databases:
+
+    http://localhost:8081
 
 ## Laravel
 
     php artisan serve
 
-Generate Open API \ Swagger documentation:
+## Open API
+
+Generate Open API documentation with l5-swagger:
 
     php artisan l5-swagger:generate
     
@@ -61,8 +69,12 @@ Generate Open API \ Swagger documentation:
 - Docker desktop
 - Postman
 
+## Notes
+
+This an API application so the user interface parts should be in another application.
+In fact, this example cannot be useful if you want to build a classic Laravel MCV application with all the views.
+In this case, you must use something like Jetstream to separate the frontend and backend areas.
+
 ## TODO
 
-- [Code Testing](https://laravel.com/docs/8.x/http-tests)
-- [Testing Laravel Passport](https://laravel.com/docs/8.x/passport#testing)
-- Open API comments testing?
+- Testing
