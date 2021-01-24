@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Auth\AuthenticationException;
 use Throwable;
@@ -53,6 +54,16 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        // Unauthenticated method
+        if ( get_class($exception) == 'Illuminate\Auth\AuthenticationException') {
+            return $this->unauthenticated($request, $exception);
+        }
+
+        // Testing model not found
+        if ($exception instanceof ModelNotFoundException) {
+            return response(['error' => 'unauthenticated'], 404);
+        }
+var_dump($exception->getMessage().' File: '.$exception->getFile().' Line: '.$exception->getLine());
         return response([
             // 'error' => $exception->getMessage().' File: '.$exception->getFile().' Line: '.$exception->getLine(),
             'error' => $exception->getMessage(),

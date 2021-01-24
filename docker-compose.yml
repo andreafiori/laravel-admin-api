@@ -1,4 +1,5 @@
 version: '3.7'
+
 services:
   frontend:
     image: antoniopapa1991/admin-frontend
@@ -14,11 +15,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      DB_HOST: db
-      DB_DATABASE: admin
-      DB_USERNAME: root
-      DB_PASSWORD: root
     ports:
       - 8000:8000
     volumes:
@@ -33,10 +29,11 @@ services:
     image: mysql:5.7.22
     restart: always
     environment:
-      MYSQL_DATABASE: admin
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
     volumes:
       - .dbdata:/var/lib/mysql
     ports:

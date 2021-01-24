@@ -50,6 +50,14 @@ Generate Open API documentation with l5-swagger:
 
     php artisan l5-swagger:generate
     
+Login endpoint:
+
+    POST /api/login
+
+If you obtain the error: Personal access client not found. Please create one.
+
+    php artisan passport:install
+
 ## Run tests
 
     php artisan test
@@ -78,3 +86,4 @@ In this case, you must use something like Jetstream to separate the frontend and
 ## TODO
 
 - Testing
+- Travis CI integration

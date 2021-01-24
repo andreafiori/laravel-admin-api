@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ChartResource;
-use App\Models\Order;
+use App\Models\Dashboard;
 
 class DashboardController extends Controller
 {
@@ -20,11 +20,7 @@ class DashboardController extends Controller
     {
         \Gate::authorize('view', 'orders');
 
-        $orders = Order::query()
-            ->join('order_items', 'orders.id', '=', 'order_items.order_id')
-            ->selectRaw("DATE_FORMAT(orders.created_at, '%Y-%m-%d') as date, sum(order_items.quantity*order_items.price) as sum")
-            ->groupBy('date')
-            ->get();
+        $orders = Dashboard::findOrderForChart();
 
         return ChartResource::collection($orders);
     }
