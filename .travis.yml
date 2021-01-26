@@ -19,10 +19,12 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
+  - cp .env.travis .env
   - composer self-update
   - composer install --no-interaction
   - docker ps
   - docker-compose up -d
 
 script:
+  # - php artisan migrate --no-interaction -vvv
   - php artisan test
