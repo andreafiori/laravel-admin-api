@@ -19,6 +19,8 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
+  - composer self-update
+  - composer install --no-interaction
   - docker ps
   - docker-compose up -d
 

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use App\Models\User;
+use App\Http\Resources\UserResource;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -46,7 +47,7 @@ abstract class TestCase extends BaseTestCase
     {
         $faker = Factory::create();
 
-        $user = User::create([
+        $user = User::factory()->create([
             'first_name' => $faker->firstName,
             'last_name' => $faker->lastName,
             'email' => $faker->email,

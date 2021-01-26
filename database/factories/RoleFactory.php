@@ -20,18 +20,4 @@ class RoleFactory extends Factory
             'name' => $this->faker->word(),
         ];
     }
-
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function run()
-    {
-        Role::create(['name' => 'Admin']);
-        Role::create(['name' => 'Editor']);
-        Role::create(['name' => 'Viewer']);
-
-        return [];
-    }
 }
