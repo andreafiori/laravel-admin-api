@@ -14,7 +14,11 @@ class AddRoleIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('role_id')->nullable();
+            if (!$this->isSqlite()) {
+                $table->unsignedBigInteger('role_id');
+            } else {
+                $table->unsignedBigInteger('role_id')->nullable();
+            }
 
             $table->foreign('role_id')
                 ->references('id')
@@ -31,8 +35,15 @@ class AddRoleIdToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            // $table->dropForeign('role_id');
+            if (!$this->isSqlite()) {
+                $table->dropForeign('role_id');
+            }
             $table->dropColumn('role_id');
         });
+    }
+
+    private function isSqlite()
+    {
+        return (\DB::connection() instanceof \Illuminate\Database\SQLiteConnection);
     }
 }

@@ -63,7 +63,8 @@ class Handler extends ExceptionHandler
         if ($exception instanceof ModelNotFoundException) {
             return response(['error' => 'unauthenticated'], 404);
         }
-var_dump($exception->getMessage().' File: '.$exception->getFile().' Line: '.$exception->getLine());
+        // Debug
+        // var_dump($exception->getMessage().' File: '.$exception->getFile().' Line: '.$exception->getLine());
         return response([
             // 'error' => $exception->getMessage().' File: '.$exception->getFile().' Line: '.$exception->getLine(),
             'error' => $exception->getMessage(),

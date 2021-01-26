@@ -50,7 +50,7 @@ class ProductController extends Controller
     {
         \Gate::authorize('view', 'products');
 
-        return new ProductResource(Product::find($id));
+        return new ProductResource(Product::findOrFail($id));
     }
 
     /**

@@ -2,11 +2,11 @@
 
 namespace Tests;
 
-use App\Models\Role;
-use App\Models\User;
+use Faker\Factory;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use App\Models\User;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -18,12 +18,14 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        $this->artisan('db:seed');
-        // alternatively you can call
-        // $this->seed();
-
-        // Install passport
+        // $this->artisan('migrate');
+        $this->artisan('db:seed'); // OR $this->seed();
         $this->artisan('passport:install');
+    }
+
+    public function tearDown(): void
+    {
+        $this->artisan('migrate:reset');
     }
 
     public function create($model, array $attributes = [], $resource = true)
@@ -40,14 +42,18 @@ abstract class TestCase extends BaseTestCase
         return new $resourceClass($modelClassFactory);
     }
 
-    public function createTestUser()
+    public function createUserAdmin()
     {
-        Role::create([
-            'name' => 'Admin'
+        $faker = Factory::create();
+
+        $user = User::create([
+            'first_name' => $faker->firstName,
+            'last_name' => $faker->lastName,
+            'email' => $faker->email,
+            'password' => $faker->password,
+            'role_id' => 1, // Admin
         ]);
 
-        $modelClassFactory = User::factory()->create();
-
-        return $modelClassFactory;
+        return $user;
     }
 }
