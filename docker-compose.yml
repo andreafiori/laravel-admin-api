@@ -2,6 +2,7 @@ version: '3.7'
 
 services:
   frontend:
+    container_name: admin_frontend
     image: antoniopapa1991/admin-frontend
     ports:
       - 8080:80
