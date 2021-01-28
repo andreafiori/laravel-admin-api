@@ -58,6 +58,42 @@ class ProductController extends Controller
      *   path="/products",
      *   security={{"bearerAuth":{}}},
      *   tags={"Products"},
+     *   @OA\Parameter(
+     *     name="image",
+     *     description="Product Image",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="file"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="title",
+     *     description="Product title",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="description",
+     *     description="Product description",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="price",
+     *     description="Product price",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="integer"
+     *     )
+     *   ),
      *   @OA\Response(response="201",
      *     description="Product Create",
      *   )
@@ -81,8 +117,35 @@ class ProductController extends Controller
      *     description="Product Update",
      *   ),
      *   @OA\Parameter(
-     *     name="id",
-     *     description="Product ID",
+     *     name="image",
+     *     description="Product image",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="file"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="title",
+     *     description="Product title",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="description",
+     *     description="Product description",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="price",
+     *     description="Product price",
      *     in="path",
      *     required=true,
      *     @OA\Schema(
@@ -106,10 +169,7 @@ class ProductController extends Controller
      * @OA\Delete(path="/products/{id}",
      *   security={{"bearerAuth":{}}},
      *   tags={"Products"},
-     *   @OA\Response(response="204",
-     *     description="Product Delete",
-     *   ),
-     *   @OA\Parameter(
+      *   @OA\Parameter(
      *     name="id",
      *     description="Product ID",
      *     in="path",
@@ -117,7 +177,10 @@ class ProductController extends Controller
      *     @OA\Schema(
      *        type="integer"
      *     )
-     *   )
+     *   ),
+     *   @OA\Response(response="204",
+     *     description="Product Delete",
+     *   ),
      * )
      */
     public function destroy($id)

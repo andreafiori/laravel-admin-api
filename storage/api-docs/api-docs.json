@@ -22,9 +22,29 @@
                     "Public"
                 ],
                 "operationId": "App\\Http\\Controllers\\AuthController::login",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "path",
+                        "description": "Password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Login"
+                        "description": "Login success"
                     }
                 }
             }
@@ -48,6 +68,35 @@
                     "Public"
                 ],
                 "operationId": "App\\Http\\Controllers\\AuthController::register",
+                "parameters": [
+                    {
+                        "name": "first_name",
+                        "in": "path",
+                        "description": "First Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "path",
+                        "description": "Last Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Register"
@@ -79,6 +128,17 @@
                     "Images"
                 ],
                 "operationId": "App\\Http\\Controllers\\ImageController::upload",
+                "parameters": [
+                    {
+                        "name": "image",
+                        "in": "path",
+                        "description": "Image",
+                        "required": true,
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Upload Images"
@@ -178,6 +238,44 @@
                     "Products"
                 ],
                 "operationId": "App\\Http\\Controllers\\ProductController::store",
+                "parameters": [
+                    {
+                        "name": "image",
+                        "in": "path",
+                        "description": "Product Image",
+                        "required": true,
+                        "schema": {
+                            "type": "file"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "path",
+                        "description": "Product title",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "path",
+                        "description": "Product description",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "in": "path",
+                        "description": "Product price",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "201": {
                         "description": "Product Create"
@@ -225,9 +323,36 @@
                 "operationId": "App\\Http\\Controllers\\ProductController::update",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "image",
                         "in": "path",
-                        "description": "Product ID",
+                        "description": "Product image",
+                        "required": true,
+                        "schema": {
+                            "type": "file"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "path",
+                        "description": "Product title",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "path",
+                        "description": "Product description",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "in": "path",
+                        "description": "Product price",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -399,6 +524,15 @@
                 "description": "Returns list of users",
                 "operationId": "getUsersList",
                 "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
                     {
                         "name": "page",
                         "in": "query",

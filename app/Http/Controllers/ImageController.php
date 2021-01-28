@@ -12,6 +12,15 @@ class ImageController extends Controller
      *   path="/upload",
      *   security={{"bearerAuth":{}}},
      *   tags={"Images"},
+     *   @OA\Parameter(
+     *     name="image",
+     *     description="Image",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="file"
+     *     )
+     *   ),
      *   @OA\Response(response="200",
      *     description="Upload Images",
      *   )

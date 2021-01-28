@@ -14,25 +14,35 @@ use App\Models\User;
 class UserController extends Controller
 {
     /**
-     * @OA\Get(
-     *      path="/users",
-     *      operationId="getUsersList",
-     *      tags={"Users"},
-     *      summary="Get list of users",
-     *      description="Returns list of users",
-     *      security={{"bearer_token": {}}},
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation"
-     *      ),
-     *      @OA\Parameter(
-     *          name="page",
-     *          description="Pagination page",
-     *          in="query",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
+     *  @OA\Get(
+     *     path="/users",
+     *     operationId="getUsersList",
+     *     tags={"Users"},
+     *     summary="Get list of users",
+     *     description="Returns list of users",
+     *     security={{"bearer_token": {}}},
+     *     @OA\Parameter(
+     *       name="email",
+     *       description="Email",
+     *       in="path",
+     *       required=true,
+     *       @OA\Property(property="file", type="string", format="binary"),
+     *       @OA\Schema(
+     *         type="string"
+     *       )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Parameter(
+     *         name="page",
+     *         description="Pagination page",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *  )
      */
     public function index()
@@ -51,10 +61,6 @@ class UserController extends Controller
      *      tags={"Users"},
      *      description="Return single user",
      *      security={{"bearer_token": {}}},
-     *      @OA\Response(
-     *          response=200,
-     *          description="User"
-     *      ),
      *      @OA\Parameter(
      *          name="id",
      *          description="User ID",
@@ -64,6 +70,10 @@ class UserController extends Controller
      *              type="integer"
      *          )
      *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="User"
+     *      )
      *  )
      */
     public function show($id)
@@ -82,11 +92,12 @@ class UserController extends Controller
      *      tags={"Users"},
      *      description="Create user",
      *      security={{"bearer_token": {}}},
+
      *      @OA\Response(
      *          response=201,
      *          description="User"
      *      ),
-     *     @OA\RequestBody(
+     *      @OA\RequestBody(
      *          required=true,
      *          @OA\JsonContent(ref="#/components/schemas/UserCreateRequest")
      *     )

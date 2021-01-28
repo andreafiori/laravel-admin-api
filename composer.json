@@ -1,12 +1,11 @@
 {
-    "name": "laravel/laravel",
+    "name": "andreafiori/laravel-admin-api",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Laravel APIs example with tests and Open API documentation",
     "keywords": [
         "framework",
         "laravel"
     ],
-    "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
         "darkaonline/l5-swagger": "^8.0",

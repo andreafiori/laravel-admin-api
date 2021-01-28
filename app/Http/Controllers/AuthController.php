@@ -14,8 +14,27 @@ class AuthController extends Controller
      * @OA\Post(
      *   path="/login",
      *   tags={"Public"},
+     *   @OA\Parameter(
+     *     name="email",
+     *     description="Email",
+     *     in="path",
+     *     required=true,
+     *     @OA\Property(property="file", type="string", format="binary"),
+     *     @OA\Schema(
+     *        type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="password",
+     *     description="Password",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="string"
+     *     )
+     *   ),
      *   @OA\Response(response="200",
-     *     description="Login",
+     *     description="Login success",
      *   )
      * )
      */
@@ -28,6 +47,7 @@ class AuthController extends Controller
 
             $token = $user->createToken('admin')->accessToken;
 
+            // Cookie authentication
             $cookie = \cookie('jwt', $token, 3600);
 
             return \response([
@@ -62,6 +82,33 @@ class AuthController extends Controller
      * @OA\Post(
      *   path="/register",
      *   tags={"Public"},
+     *   @OA\Parameter(
+     *     name="first_name",
+     *     description="First Name",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="last_name",
+     *     description="Last Name",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="email",
+     *     description="Email",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *        type="string"
+     *     )
+     *   ),
      *   @OA\Response(response="200",
      *     description="Register",
      *   )

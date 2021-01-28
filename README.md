@@ -1,6 +1,8 @@
 # Laravel API Admin
 
-A Laravel PHP APIs example application with documentation.
+[![Build Status](https://travis-ci.com/andreafiori/laravel-admin-api.svg?branch=master)](https://travis-ci.com/andreafiori/laravel-admin-api)
+
+A Laravel PHP APIs example application with tests and documentation.
 
 ## Requirements
 
@@ -11,11 +13,13 @@ A Laravel PHP APIs example application with documentation.
 
 ## Installation
 
-You can install the laravel dependencies with composer install but the application uses Docker anyway:
+Install dependencies:
+
+    composer install
 
 Create containers backend, frontend and db:
 
-    docker compose up -d
+    docker-compose up -d
 
 Run docker:
 
@@ -49,16 +53,20 @@ PHPMyAdmin configuration is included in the docker-compose.yml so you can use it
 Generate Open API documentation with l5-swagger:
 
     php artisan l5-swagger:generate
-    
-Login endpoint:
+
+A login endpoint with parameters (email and password) will let you to obtain a Bearer token:
 
     POST /api/login
 
-If you obtain the error: Personal access client not found. Please create one.
+If you obtain the error "Personal access client not found. Please create one.", run:
 
     php artisan passport:install
 
-## Run tests
+## Tests
+
+Tests use Sqlite and memory database configuration (see phpunit.xml).
+
+Run tests:
 
     php artisan test
 
@@ -69,21 +77,3 @@ If you obtain the error: Personal access client not found. Please create one.
     - [Laravel passport](https://laravel.com/docs/8.x/passport)
 - [Docker](https://www.docker.com/)
 - [L6 Swagger](https://github.com/DarkaOnLine/L5-Swagger)
-- [React](https://en.reactjs.org/)
-
-## Tools
-
-- PHPStorm IDE
-- Docker desktop
-- Postman
-
-## Notes
-
-This an API application so the user interface parts should be in another application.
-In fact, this example cannot be useful if you want to build a classic Laravel MCV application with all the views.
-In this case, you must use something like Jetstream to separate the frontend and backend areas.
-
-## TODO
-
-- Testing
-- Travis CI integration
