@@ -21,29 +21,13 @@ class UserController extends Controller
      *     summary="Get list of users",
      *     description="Returns list of users",
      *     security={{"bearer_token": {}}},
-     *     @OA\Parameter(
-     *       name="email",
-     *       description="Email",
-     *       in="path",
-     *       required=true,
-     *       @OA\Property(property="file", type="string", format="binary"),
-     *       @OA\Schema(
-     *         type="string"
-     *       )
-     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation"
      *     ),
-     *     @OA\Parameter(
-     *         name="page",
-     *         description="Pagination page",
-     *         in="query",
-     *         @OA\Schema(
-     *             type="integer"
-     *         )
-     *     ),
      *  )
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
@@ -75,6 +59,8 @@ class UserController extends Controller
      *          description="User"
      *      )
      *  )
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show($id)
     {
@@ -102,6 +88,8 @@ class UserController extends Controller
      *          @OA\JsonContent(ref="#/components/schemas/UserCreateRequest")
      *     )
      *  )
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(UserCreateRequest $request)
     {
@@ -142,6 +130,8 @@ class UserController extends Controller
      *          @OA\JsonContent(ref="#/components/schemas/UserUpdateRequest")
      *     )
      *  )
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(UserUpdateRequest $request, $id)
     {
@@ -175,6 +165,8 @@ class UserController extends Controller
      *          )
      *      )
      *  )
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy($id)
     {

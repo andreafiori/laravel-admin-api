@@ -12,22 +12,34 @@ class ImageController extends Controller
      *   path="/upload",
      *   security={{"bearerAuth":{}}},
      *   tags={"Images"},
-     *   @OA\Parameter(
-     *     name="image",
-     *     description="Image",
-     *     in="path",
-     *     required=true,
-     *     @OA\Schema(
-     *        type="file"
-     *     )
+     *   @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"image"},
+     *                 @OA\Property(
+     *                     property="image",
+     *                     type="file",
+     *                     format="file",
+     *                     description="Image",
+     *                 ),
+     *
+     *             )
+     *        )
      *   ),
      *   @OA\Response(response="200",
      *     description="Upload Images",
      *   )
      * )
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function upload(ImageUploadRequest $request)
     {
+        // TODO upload permission \Gate::authorize('edit', 'upload');
+        \Gate::authorize('edit', 'products');
+
         $file = $request->file('image');
         $name = Str::random(10);
         $url = \Storage::putFileAs('images', $file, $name . '.' . $file->extension());

@@ -18,6 +18,8 @@ class ProductController extends Controller
      *     description="Product Collection",
      *   )
      * )
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
@@ -32,9 +34,6 @@ class ProductController extends Controller
      * @OA\Get(path="/products/{id}",
      *   security={{"bearerAuth":{}}},
      *   tags={"Products"},
-     *   @OA\Response(response="200",
-     *     description="User",
-     *   ),
      *   @OA\Parameter(
      *     name="id",
      *     description="Product ID",
@@ -43,8 +42,16 @@ class ProductController extends Controller
      *     @OA\Schema(
      *        type="integer"
      *     )
-     *   )
+     *   ),
+     *   @OA\Response(response="200",
+     *     description="User",
+     *   ),
+     *   @OA\Response(response="401",
+     *     description="Unauthorized",
+     *   ),
      * )
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show($id)
     {
@@ -58,46 +65,45 @@ class ProductController extends Controller
      *   path="/products",
      *   security={{"bearerAuth":{}}},
      *   tags={"Products"},
-     *   @OA\Parameter(
-     *     name="image",
-     *     description="Product Image",
-     *     in="path",
-     *     required=true,
-     *     @OA\Schema(
-     *        type="file"
-     *     )
-     *   ),
-     *   @OA\Parameter(
-     *     name="title",
-     *     description="Product title",
-     *     in="path",
-     *     required=true,
-     *     @OA\Schema(
-     *        type="string"
-     *     )
-     *   ),
-     *   @OA\Parameter(
-     *     name="description",
-     *     description="Product description",
-     *     in="path",
-     *     required=true,
-     *     @OA\Schema(
-     *        type="string"
-     *     )
-     *   ),
-     *   @OA\Parameter(
-     *     name="price",
-     *     description="Product price",
-     *     in="path",
-     *     required=true,
-     *     @OA\Schema(
-     *        type="integer"
-     *     )
+     *   @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"image","title","description","price"},
+     *                 @OA\Property(
+     *                     property="image",
+     *                     type="file",
+     *                     format="file",
+     *                     description="Image",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="title",
+     *                     type="string",
+     *                     format="string",
+     *                     description="Title",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="description",
+     *                     type="string",
+     *                     format="string",
+     *                     description="Description",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="price",
+     *                     type="integer",
+     *                     format="integer",
+     *                     description="Price",
+     *                 ),
+     *             )
+     *         )
      *   ),
      *   @OA\Response(response="201",
      *     description="Product Create",
      *   )
      * )
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(ProductCreateRequest $request)
     {
@@ -113,46 +119,56 @@ class ProductController extends Controller
      *   path="/products/{id}",
      *   security={{"bearerAuth":{}}},
      *   tags={"Products"},
-     *   @OA\Response(response="202",
-     *     description="Product Update",
-     *   ),
      *   @OA\Parameter(
-     *     name="image",
-     *     description="Product image",
-     *     in="path",
-     *     required=true,
-     *     @OA\Schema(
-     *        type="file"
-     *     )
-     *   ),
-     *   @OA\Parameter(
-     *     name="title",
-     *     description="Product title",
-     *     in="path",
-     *     required=true,
-     *     @OA\Schema(
-     *        type="string"
-     *     )
-     *   ),
-     *   @OA\Parameter(
-     *     name="description",
-     *     description="Product description",
-     *     in="path",
-     *     required=true,
-     *     @OA\Schema(
-     *        type="string"
-     *     )
-     *   ),
-     *   @OA\Parameter(
-     *     name="price",
-     *     description="Product price",
+     *     name="id",
+     *     description="Product ID",
      *     in="path",
      *     required=true,
      *     @OA\Schema(
      *        type="integer"
      *     )
-     *   )
+     *   ),
+     *   @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"image","title","description","price"},
+     *                 @OA\Property(
+     *                     property="image",
+     *                     type="file",
+     *                     format="file",
+     *                     description="Image",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="title",
+     *                     type="string",
+     *                     format="string",
+     *                     description="Title",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="description",
+     *                     type="text",
+     *                     format="string",
+     *                     description="Description",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="price",
+     *                     type="integer",
+     *                     format="integer",
+     *                     description="Price",
+     *                 ),
+     *             )
+     *         )
+     *   ),
+     *   @OA\Response(response="202",
+     *     description="Product Update",
+     *   ),
      * )
+     *
+     * @param ProductUpdateRequest $request
+     * @param integer $id
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(ProductUpdateRequest $request, $id)
     {
@@ -169,7 +185,7 @@ class ProductController extends Controller
      * @OA\Delete(path="/products/{id}",
      *   security={{"bearerAuth":{}}},
      *   tags={"Products"},
-      *   @OA\Parameter(
+      *  @OA\Parameter(
      *     name="id",
      *     description="Product ID",
      *     in="path",
@@ -182,12 +198,17 @@ class ProductController extends Controller
      *     description="Product Delete",
      *   ),
      * )
+     *
+     * @param integer $id
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy($id)
     {
         \Gate::authorize('edit', 'products');
 
-        Product::destroy($id);
+        $product = Product::findOrFail($id);
+
+        Product::destroy($product->id);
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

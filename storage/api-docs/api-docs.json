@@ -22,35 +22,55 @@
                     "Public"
                 ],
                 "operationId": "App\\Http\\Controllers\\AuthController::login",
-                "parameters": [
-                    {
-                        "name": "email",
-                        "in": "path",
-                        "description": "Email",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "password",
-                        "in": "path",
-                        "description": "Password",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "description": "Email",
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "password": {
+                                        "description": "Password",
+                                        "type": "string",
+                                        "format": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
-                        "description": "Login success"
+                        "description": "Login success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LoginRequest"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
                     }
                 }
             }
         },
         "/logout": {
-            "post": {
+            "get": {
                 "tags": [
                     "Public"
                 ],
@@ -68,35 +88,43 @@
                     "Public"
                 ],
                 "operationId": "App\\Http\\Controllers\\AuthController::register",
-                "parameters": [
-                    {
-                        "name": "first_name",
-                        "in": "path",
-                        "description": "First Name",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "last_name",
-                        "in": "path",
-                        "description": "Last Name",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "email",
-                        "in": "path",
-                        "description": "Email",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "description": "First name",
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "last_name": {
+                                        "description": "Last name",
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "email": {
+                                        "description": "Email",
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "password": {
+                                        "description": "Password",
+                                        "type": "string",
+                                        "format": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
                         "description": "Register"
@@ -128,17 +156,25 @@
                     "Images"
                 ],
                 "operationId": "App\\Http\\Controllers\\ImageController::upload",
-                "parameters": [
-                    {
-                        "name": "image",
-                        "in": "path",
-                        "description": "Image",
-                        "required": true,
-                        "schema": {
-                            "type": "file"
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "image"
+                                ],
+                                "properties": {
+                                    "image": {
+                                        "description": "Image",
+                                        "type": "file",
+                                        "format": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
                         "description": "Upload Images"
@@ -238,44 +274,43 @@
                     "Products"
                 ],
                 "operationId": "App\\Http\\Controllers\\ProductController::store",
-                "parameters": [
-                    {
-                        "name": "image",
-                        "in": "path",
-                        "description": "Product Image",
-                        "required": true,
-                        "schema": {
-                            "type": "file"
-                        }
-                    },
-                    {
-                        "name": "title",
-                        "in": "path",
-                        "description": "Product title",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "description",
-                        "in": "path",
-                        "description": "Product description",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "price",
-                        "in": "path",
-                        "description": "Product price",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "image",
+                                    "title",
+                                    "description",
+                                    "price"
+                                ],
+                                "properties": {
+                                    "image": {
+                                        "description": "Image",
+                                        "type": "file",
+                                        "format": "file"
+                                    },
+                                    "title": {
+                                        "description": "Title",
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "description": {
+                                        "description": "Description",
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "price": {
+                                        "description": "Price",
+                                        "type": "integer",
+                                        "format": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "201": {
                         "description": "Product Create"
@@ -308,6 +343,9 @@
                 "responses": {
                     "200": {
                         "description": "User"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     }
                 },
                 "security": [
@@ -323,42 +361,52 @@
                 "operationId": "App\\Http\\Controllers\\ProductController::update",
                 "parameters": [
                     {
-                        "name": "image",
+                        "name": "id",
                         "in": "path",
-                        "description": "Product image",
-                        "required": true,
-                        "schema": {
-                            "type": "file"
-                        }
-                    },
-                    {
-                        "name": "title",
-                        "in": "path",
-                        "description": "Product title",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "description",
-                        "in": "path",
-                        "description": "Product description",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "price",
-                        "in": "path",
-                        "description": "Product price",
+                        "description": "Product ID",
                         "required": true,
                         "schema": {
                             "type": "integer"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "image",
+                                    "title",
+                                    "description",
+                                    "price"
+                                ],
+                                "properties": {
+                                    "image": {
+                                        "description": "Image",
+                                        "type": "file",
+                                        "format": "file"
+                                    },
+                                    "title": {
+                                        "description": "Title",
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "description": {
+                                        "description": "Description",
+                                        "type": "text",
+                                        "format": "string"
+                                    },
+                                    "price": {
+                                        "description": "Price",
+                                        "type": "integer",
+                                        "format": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "202": {
                         "description": "Product Update"
@@ -523,25 +571,6 @@
                 "summary": "Get list of users",
                 "description": "Returns list of users",
                 "operationId": "getUsersList",
-                "parameters": [
-                    {
-                        "name": "email",
-                        "in": "path",
-                        "description": "Email",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "description": "Pagination page",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -754,6 +783,21 @@
     },
     "components": {
         "schemas": {
+            "LoginRequest": {
+                "title": "Login Request",
+                "description": "Login request body data",
+                "properties": {
+                    "email": {
+                        "title": "email",
+                        "type": "string"
+                    },
+                    "password": {
+                        "title": "password",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
             "UpdateInfoRequest": {
                 "title": "Update User info Request",
                 "description": "Update User info request",

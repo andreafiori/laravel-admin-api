@@ -15,6 +15,8 @@ class OrderController extends Controller
      *     description="Order Collection",
      *   )
      * )
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
@@ -29,9 +31,6 @@ class OrderController extends Controller
      * @OA\Get(path="/orders/{id}",
      *   security={{"bearerAuth":{}}},
      *   tags={"Orders"},
-     *   @OA\Response(response="200",
-     *     description="User",
-     *   ),
      *   @OA\Parameter(
      *     name="id",
      *     description="Order ID",
@@ -40,14 +39,19 @@ class OrderController extends Controller
      *     @OA\Schema(
      *        type="integer"
      *     )
-     *   )
+     *   ),
+     *   @OA\Response(response="200",
+     *     description="User",
+     *   ),
      * )
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show($id)
     {
         \Gate::authorize('view', 'orders');
 
-        return new OrderResource(Order::find($id));
+        return new OrderResource(Order::findOrFail($id));
     }
 
     /**
@@ -58,6 +62,8 @@ class OrderController extends Controller
      *     description="Order Export",
      *   )
      * )
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function export()
     {

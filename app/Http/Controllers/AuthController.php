@@ -14,27 +14,34 @@ class AuthController extends Controller
      * @OA\Post(
      *   path="/login",
      *   tags={"Public"},
-     *   @OA\Parameter(
-     *     name="email",
-     *     description="Email",
-     *     in="path",
-     *     required=true,
-     *     @OA\Property(property="file", type="string", format="binary"),
-     *     @OA\Schema(
-     *        type="string"
-     *     )
-     *   ),
-     *   @OA\Parameter(
-     *     name="password",
-     *     description="Password",
-     *     in="path",
-     *     required=true,
-     *     @OA\Schema(
-     *        type="string"
-     *     )
+     *   @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"email","password"},
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="string",
+     *                     format="string",
+     *                     description="Email",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     type="string",
+     *                     format="string",
+     *                     description="Password",
+     *                 ),
+     *             )
+     *         )
      *   ),
      *   @OA\Response(response="200",
      *     description="Login success",
+     *     @OA\JsonContent(ref="#/components/schemas/LoginRequest")
+     *   ),
+     *   @OA\Response(response="401",
+     *     description="Invalid credentials",
+     *     @OA\JsonContent()
      *   )
      * )
      */
@@ -61,7 +68,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @OA\Post(
+     * @OA\Get(
      *   path="/logout",
      *   tags={"Public"},
      *   @OA\Response(response="200",
@@ -82,32 +89,38 @@ class AuthController extends Controller
      * @OA\Post(
      *   path="/register",
      *   tags={"Public"},
-     *   @OA\Parameter(
-     *     name="first_name",
-     *     description="First Name",
-     *     in="path",
-     *     required=true,
-     *     @OA\Schema(
-     *        type="string"
-     *     )
-     *   ),
-     *   @OA\Parameter(
-     *     name="last_name",
-     *     description="Last Name",
-     *     in="path",
-     *     required=true,
-     *     @OA\Schema(
-     *        type="string"
-     *     )
-     *   ),
-     *   @OA\Parameter(
-     *     name="email",
-     *     description="Email",
-     *     in="path",
-     *     required=true,
-     *     @OA\Schema(
-     *        type="string"
-     *     )
+     *       @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"first_name","last_name","email","password"},
+     *                 @OA\Property(
+     *                     property="first_name",
+     *                     type="string",
+     *                     format="string",
+     *                     description="First name",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="last_name",
+     *                     type="string",
+     *                     format="string",
+     *                     description="Last name",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="string",
+     *                     format="string",
+     *                     description="Email",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     type="string",
+     *                     format="string",
+     *                     description="Password",
+     *                 ),
+     *             )
+     *         )
      *   ),
      *   @OA\Response(response="200",
      *     description="Register",

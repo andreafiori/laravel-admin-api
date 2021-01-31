@@ -17,6 +17,8 @@ class RoleController extends Controller
      *     description="Role Collection",
      *   )
      * )
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
@@ -42,6 +44,9 @@ class RoleController extends Controller
      *     )
      *   )
      * )
+     *
+     * @param integer $id
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show($id)
     {
@@ -59,6 +64,9 @@ class RoleController extends Controller
      *     description="Role Create",
      *   )
      * )
+     *
+     * @param Request $request
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $request)
     {
@@ -96,6 +104,10 @@ class RoleController extends Controller
      *     )
      *   )
      * )
+     *
+     * @param Request $request
+     * @param integer $id
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, $id)
     {
@@ -136,6 +148,9 @@ class RoleController extends Controller
      *     )
      *   )
      * )
+     *
+     * @param integer $id
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy($id)
     {
