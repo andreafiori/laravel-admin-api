@@ -52,7 +52,7 @@ class RoleController extends Controller
     {
         \Gate::authorize('view', 'roles');
 
-        return new RoleResource(Role::find($id));
+        return new RoleResource(Role::findOrFail($id));
     }
 
     /**
@@ -72,7 +72,7 @@ class RoleController extends Controller
     {
         \Gate::authorize('edit', 'roles');
 
-       $role = Role::create($request->only('name'));
+        $role = Role::create($request->only('name'));
 
         if ($permissions = $request->input('permissions')) {
             foreach ($permissions as $permission_id) {
@@ -158,7 +158,9 @@ class RoleController extends Controller
 
         \DB::table('role_permission')->where('role_id', $id)->delete();
 
-        Role::destroy($id);
+        $role = Role::findOrFail($id);
+
+        Role::destroy($role->id);
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

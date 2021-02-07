@@ -23,7 +23,7 @@ class ProductControllerTest extends TestCase
                             'image' => $image = $faker->imageUrl(),
                             'title' => $title = $faker->text(30),
                             'description' => $description = $faker->text,
-                            'price' => $price =$faker->numberBetween(10, 100),
+                            'price' => $price = $faker->numberBetween(10, 100),
                         ]);
 
         $response->assertJsonStructure([
@@ -70,7 +70,7 @@ class ProductControllerTest extends TestCase
 
         // When
         $response = $this->actingAs($this->createUserAdmin(), 'api')
-            ->json('GET', 'api/products/'.$product->id);
+                            ->json('GET', 'api/products/'.$product->id);
 
         // Then
         $response->assertStatus(Response::HTTP_OK)
@@ -97,7 +97,7 @@ class ProductControllerTest extends TestCase
                                 ->json('GET', 'api/products/-1');
 
         // Debug: var_dump($response->getOriginalContent());
-        $response->assertStatus(404);
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
     public function test_can_update_a_product()
@@ -117,11 +117,10 @@ class ProductControllerTest extends TestCase
             'title' => $product->title.'_updated',
             'description' => $product->description.'_description',
             'price' => $product->price + 10,
-
         ];
 
         $response->assertStatus(Response::HTTP_ACCEPTED);
-            // ->assertExactJson($productUpdated);
+                // ->assertExactJson($productUpdated);
 
         $this->assertDatabaseHas('products', $productUpdated);
     }
@@ -131,7 +130,7 @@ class ProductControllerTest extends TestCase
         $response = $this->actingAs($this->createUserAdmin(), 'api')
                             ->json('DELETE', 'api/products/-1');
 
-        $response->assertStatus(404);
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
     public function test_can_delete_a_product()
@@ -141,7 +140,7 @@ class ProductControllerTest extends TestCase
         $response = $this->actingAs($this->createUserAdmin(), 'api')
             ->json('DELETE', 'api/products/'.$product->id);
 
-        $response->assertStatus(204)->assertSee(null);
+        $response->assertStatus(Response::HTTP_NO_CONTENT)->assertSee(null);
 
         $this->assertDatabaseMissing('products', ['id' => $product->id]);
     }
