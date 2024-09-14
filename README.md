@@ -1,7 +1,5 @@
 # Laravel API Admin
 
-[![Build Status](https://travis-ci.com/andreafiori/laravel-admin-api.svg?branch=master)](https://travis-ci.com/andreafiori/laravel-admin-api)
-
 A Laravel PHP APIs example application with tests and documentation.
 
 ## Requirements
